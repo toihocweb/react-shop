@@ -1,0 +1,19 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "strapi-hook-mongoose",
+      "settings": {
+        "client": "mongo",
+        "host": "ds123645.mlab.com",
+        "port": "23645",
+        "database": "findmyaccount",
+        "username": "nhatdaica055",
+        "password": "nguoihung123"
+      },
+      "options": {
+        "authenticationDatabase": "findmyaccount"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "dichvu",
+  "info": {
+    "name": "dichvu",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "type": "text"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "stock": {
+      "default": "",
+      "type": "integer"
+    },
+    "expired": {
+      "default": "",
+      "type": "string"
+    },
+    "details": {
+      "collection": "detail",
+      "via": "dichvu"
+    }
+  }
+}

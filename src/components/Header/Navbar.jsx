@@ -11,15 +11,15 @@ class Navbar extends Component {
     render() {
 
         return (
-            <header class="f-between">
-                <div class="logo">
+            <header className="f-between">
+                <div className="logo">
                     <h1><Link to='/'>FindUr<span>Account</span></Link></h1>
                 </div>
-                <div class="nav">
-                    <ul class="f-between">
-                        <li><NavLink to='/login'>Login</NavLink></li>
-                        <li><NavLink to='/register'>Register</NavLink></li>
-                        <Dropdown text='Welcome, nhatdaica055'>
+                <div className="nav">
+                    <ul className="f-between">
+                        <li><NavLink to='/login'>Đăng Nhập</NavLink></li>
+                        <li><NavLink to='/register'>Đăng Kí</NavLink></li>
+                        <Dropdown text='Chào, admin!'>
                             <Dropdown.Menu>
                                 <Dropdown.Item text='Tài khoản' as={Link} to='/register'/>
                                 <Dropdown.Item text='Đăng xuất' onClick={this.handleLogout} />

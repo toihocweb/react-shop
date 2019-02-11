@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Navbar from '../Header/Navbar';
 import { Grid, Header, Message, Segment, Icon, Form, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import firebase from '../../firebase'
@@ -120,7 +119,6 @@ class Register extends Component {
 
         return (
             <div className='container'>
-                {/* <Navbar /> */}
                 <Grid verticalAlign='middle' textAlign='center' className='register' >
                     <Grid.Column style={{ maxWidth: 600 }}>
                         <Header icon color={color} as='h2'>
@@ -136,11 +134,11 @@ class Register extends Component {
                                 <Form.Input iconPosition='left' placeholder="Password" icon='lock' name='password' onChange={this.handleChange} value={password} type='password' />
                                 <Form.Input iconPosition='left' placeholder="Re-Password" icon='undo' name='repassword' onChange={this.handleChange} value={repassword} type='password' />
                                 {this.state.errors.length > 0 && this.state.errors.map((err, index) => (<Message key={index} color='red' content={err.message} />))}
-                                <Button fluid color={color} loading={this.state.isLoading} disabled={this.state.isLoading}> Submit</Button>
+                                <Button fluid color={color} loading={this.state.isLoading} disabled={this.state.isLoading}> Đăng kí </Button>
                             </Form>
                             <Message warning>
                                 <Icon name='help' />
-                                Already signed up?<Link to='login'> Login here</Link> instead.
+                                Bạn đăng kí rồi hã?<Link to='login'> Đăng Nhập Ngay</Link> nè.
                          </Message>
                         </Segment>
                     </Grid.Column>

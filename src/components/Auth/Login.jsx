@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Navbar from '../Header/Navbar';
 import { Grid, Icon, Segment, Form, Message, Button, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import './auth.css'
@@ -65,11 +64,11 @@ class Login extends Component {
                                 <Form.Input iconPosition='left' placeholder="Email" icon='mail' name='email' onChange={this.handleChange} value={email} type='email' />
                                 <Form.Input iconPosition='left' placeholder="Password" icon='lock' name='password' onChange={this.handleChange} value={password} type='password' />
                                 {this.state.errors.length > 0 && this.state.errors.map((err, index) => (<Message key={index} color='red' content={err.message} />))}
-                                <Button fluid color={color} loading={this.state.isloading} disabled={this.state.isloading}> Login </Button>
+                                <Button fluid color={color} loading={this.state.isloading} disabled={this.state.isloading}> Đăng Nhập </Button>
                             </Form>
                             <Message warning>
                                 <Icon name='help' />
-                                Dont have an account? <Link to='register'> Register</Link>.
+                                Bạn chưa đăng kí? <Link to='register'> Đăng kí ngay</Link>.
                             </Message>
                         </Segment>
                     </Grid.Column>

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/dichvus",
+      "handler": "Dichvu.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/dichvus/count",
+      "handler": "Dichvu.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/dichvus/:_id",
+      "handler": "Dichvu.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/dichvus",
+      "handler": "Dichvu.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/dichvus/:_id",
+      "handler": "Dichvu.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/dichvus/:_id",
+      "handler": "Dichvu.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
