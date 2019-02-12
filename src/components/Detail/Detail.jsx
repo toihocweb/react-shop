@@ -38,7 +38,7 @@ class Detail extends Component {
                     `
                 }
             })
-            console.log(response)
+            // console.log(response)
             this.setState({
                 dichvu: response.data.dichvu,
                 details: response.data.dichvu.details
