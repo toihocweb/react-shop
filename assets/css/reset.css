@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+ul,ol{
+    list-style: none;
+}
+
+img{
+    max-width: 100%;
+}
+
+button{
+    background: none;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
