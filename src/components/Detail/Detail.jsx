@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import Strapi from 'strapi-sdk-javascript/build/main'
 import './Detail.css'
 import { Header } from '../../../node_modules/semantic-ui-react';
-const apiURL = process.env.API_URL || "http://localhost:1337"
-const strapi = new Strapi(apiURL)
 
 class Detail extends Component {
 
@@ -13,39 +10,7 @@ class Detail extends Component {
     }
 
 
-    async componentDidMount() {
-        try {
-            const response = await strapi.request('POST', 'graphql', {
-                data: {
-                    query: `
-                    query {
-                        dichvu(id:"${this.props.match.params.id}"){
-                        _id
-                        name
-                        stock
-                        expired
-                        details {
-                          _id
-                          name
-                          image{
-                            url
-                          }
-                          price
-                          description
-                        }
-                      }
-                    }
-                    `
-                }
-            })
-            // console.log(response)
-            this.setState({
-                dichvu: response.data.dichvu,
-                details: response.data.dichvu.details
-            })
-        } catch (err) {
-            console.log(err)
-        }
+    componentDidMount() {
     }
 
     render() {
@@ -59,7 +24,7 @@ class Detail extends Component {
                         <div className="container">
                             <div className="top-detail flex">
                                 <div className="main-image">
-                                    <p><img src={`${apiURL}${detail.image.url}`} alt="" /></p>
+                                    <p><img src="" alt="" /></p>
                                 </div>
                                 <div className="main-info">
                                     <Header as='h1' color='green' content={this.state.dichvu.name} />
