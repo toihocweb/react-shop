@@ -17,11 +17,8 @@ class Navbar extends Component {
                 </div>
                 <div className="nav">
                     <ul className="f-between">
-                        <li><NavLink to='/login'>Đăng Nhập</NavLink></li>
-                        <li><NavLink to='/register'>Đăng Kí</NavLink></li>
-                        <Dropdown text='Chào, admin!'>
+                        <Dropdown text='Welcome!'>
                             <Dropdown.Menu>
-                                <Dropdown.Item text='Tài khoản' as={Link} to='/register'/>
                                 <Dropdown.Item text='Đăng xuất' onClick={this.handleLogout} />
                             </Dropdown.Menu>
                         </Dropdown>

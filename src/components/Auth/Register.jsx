@@ -8,6 +8,7 @@ class Register extends Component {
         email: '',
         password: '',
         repassword: '',
+        code : '',
         errors: [],
         isSuccess: false,
         usersRefs : firebase.database().ref("users"),
@@ -19,6 +20,7 @@ class Register extends Component {
             [e.target.name]: e.target.value
         })
     }
+
     handleSunmit = (e) => {
         e.preventDefault()
         if (this.isFormValid()) {
@@ -32,6 +34,7 @@ class Register extends Component {
                     email: '',
                     password: '',
                     repassword: '',
+                    code : '',
                     errors: [],
                     isSuccess: true,
                     isLoading: false
@@ -45,34 +48,7 @@ class Register extends Component {
 
         }
     }
-    // handleSunmit = (e) => {
-    //     e.preventDefault()
-
-    //     if (this.isFormValid()) {
-    //         this.setState({isLoading : true})
-    //         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(createdUser => {
-    //             createdUser.user.updateProfile({
-    //                 displayName : this.state.username,
-    //                 photoURL : `http://www.gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
-    //             }).then(() => {this.saveUser(createdUser)}).then(() => console.log(createdUser))
-    //             this.setState({
-    //                 username: '',
-    //                 email: '',
-    //                 password: '',
-    //                 repassword: '',
-    //                 errors: [],
-    //                 isSuccess : true,
-
-    //             })
-    //         }).catch(err => {
-    //             this.setState({
-    //                 errors : this.state.errors.concat(err),
-    //                 isLoading : false
-    //             })
-    //         })
-    //     }
-    // }
-
+  
     saveUser = (createdUser) => {
         return this.state.usersRefs.child(createdUser.user.uid).set({
             name: createdUser.user.displayName,
@@ -96,6 +72,12 @@ class Register extends Component {
                 errors: errors.concat(err)
             })
             return false
+        }  if (this.isCodeInvalid(this.state.code)) {
+            err = { message: 'code sai!' }
+            this.setState({
+                errors: errors.concat(err)
+            })
+            return false
         } else {
             this.setState({
                 errors: []
@@ -110,11 +92,18 @@ class Register extends Component {
         }
     }
 
-    isFormEmpty = ({ username, email, password, repassword }) => {
-        return !username.length || !email.length || !password.length || !repassword.length
+    isCodeInvalid = (code) => {
+        if ( code !== "CODE" ){
+            return true
+        }
+    }
+
+
+    isFormEmpty = ({ username, email, password, repassword, code }) => {
+        return !username.length || !email.length || !password.length || !repassword.length || !code.length
     }
     render() {
-        const { username, email, password, repassword } = this.state
+        const { username, email, password, repassword, code } = this.state
         const color = "blue"
 
         return (
@@ -122,7 +111,7 @@ class Register extends Component {
                 <Grid verticalAlign='middle' textAlign='center' className='register' >
                     <Grid.Column style={{ maxWidth: 600 }}>
                         <Header icon color={color} as='h2'>
-                            <Icon name='shield alternate' size='tiny' />Register With ShopAcc
+                            <Icon name='shield alternate' size='tiny' />Register With FindUrAcc
                     </Header>
                         {this.state.isSuccess && (
                             <Message color='green' content="Successsfully!" />
@@ -133,6 +122,7 @@ class Register extends Component {
                                 <Form.Input iconPosition='left' placeholder="Email" icon='mail' name='email' onChange={this.handleChange} value={email} type='email' />
                                 <Form.Input iconPosition='left' placeholder="Password" icon='lock' name='password' onChange={this.handleChange} value={password} type='password' />
                                 <Form.Input iconPosition='left' placeholder="Re-Password" icon='undo' name='repassword' onChange={this.handleChange} value={repassword} type='password' />
+                                <Form.Input iconPosition='left' placeholder="Code" icon='code' name='code' onChange={this.handleChange} value={code} type='text' />
                                 {this.state.errors.length > 0 && this.state.errors.map((err, index) => (<Message key={index} color='red' content={err.message} />))}
                                 <Button fluid color={color} loading={this.state.isLoading} disabled={this.state.isLoading}> Đăng kí </Button>
                             </Form>

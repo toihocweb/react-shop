@@ -5,6 +5,8 @@ import { GridLoader } from 'react-spinners'
 
 
 class Product extends Component {
+
+
     state = {
         searchTerm: '',
         isLoading : false,
@@ -35,9 +37,6 @@ class Product extends Component {
         this.setState({isItemLoading : true})
     }
 
-     componentDidMount() {
-        
-    }
 
     render() {
         return (
