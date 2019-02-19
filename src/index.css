@@ -125,11 +125,11 @@ header .nav a:hover::after {
 
 .list-accounts .item .info-account .acc-bot .buy {
     cursor: pointer;
-    padding: 5px 15px;
+    padding: 5px 8px;
     background: #4CAF50;
     color: white;
     border-radius: 3px;
-    font-size: 17px;
+    font-size: 0.9rem;
     position: relative;
     transform: perspective(1px) translateZ(0);
     overflow: hidden;
@@ -169,7 +169,7 @@ header .nav a:hover::after {
 }
 
 .list-accounts .item .info-account .acc-bot .stock {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 footer {
@@ -233,3 +233,6 @@ footer strong {
     transform: translateX(-50%);
 }
 
+h1{
+    font-size: 1.3rem !important;
+}

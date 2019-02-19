@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Grid, List, Icon, Form, Segment, Button, Message } from 'semantic-ui-react';
 import firebase from '../../firebase'
 import { connect } from 'react-redux'
+import _ from 'lodash'
+import { getUsers, saveUser, deleteUser } from '../../actions'
 class Users extends Component {
     state = {
         username: '',
@@ -10,7 +12,6 @@ class Users extends Component {
         repassword: '',
         errors: [],
         isSuccess: false,
-        usersRefs: firebase.database().ref("users"),
         isLoading: false,
     }
 
@@ -20,7 +21,9 @@ class Users extends Component {
         })
     }
 
-
+componentDidMount() {
+    this.props.getUsers()
+}
 
     handleSunmit = (e) => {
         e.preventDefault()
@@ -30,13 +33,14 @@ class Users extends Component {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(createdUser => {
                 createdUser.user.updateProfile({
                     displayName: this.state.username,
-                }).then(() => { this.saveUser(createdUser) }).then(() => console.log(createdUser))
+                }).then(() => { this.saveUserDB(createdUser) }).then(() => console.log(createdUser))
                 this.setState({
                     username: '',
                     email: '',
                     password: '',
                     repassword: '',
                     errors: [],
+                    isLoading: false,
                     isSuccess: true,
                 })
             }).catch(err => {
@@ -48,10 +52,12 @@ class Users extends Component {
         }
     }
 
-    saveUser = (createdUser) => {
-        return this.state.usersRefs.child(createdUser.user.uid).set({
-            name: createdUser.user.displayName,
-        })
+    saveUserDB = (createdUser) => {
+        const newUSer = {
+            name : createdUser.user.displayName,
+            email : createdUser.user.email
+        }
+        this.props.saveUser(newUSer)
     }
 
     isFormValid = () => {
@@ -88,12 +94,27 @@ class Users extends Component {
         return !username.length || !email.length || !password.length || !repassword.length
     }
 
+    renderUser = () => {
+        return _.map(this.props.user.usersList, (user, key) => {
+            return (
+                <List.Item key={key}>
+                    <List.Content>
+                        <List.Header className='item-user'>
+                            <h5>{user.name}</h5>
+                            <Icon className='edit' name='edit' />
+                            <Icon onClick={() => this.props.deleteUser(key)} name='delete' />
+                        </List.Header>
+                    </List.Content>
+                </List.Item>
+            )
+        })
+    }
+
     render() {
         const { username, email, password, repassword } = this.state
-        const { users } = this.props
         return (
-            <Grid  className='ad-register' >
-                <Grid.Column textAlign='center' width={10} >
+            <Grid className='ad-register' >
+                <Grid.Column textAlign='center' width={8} >
                     {this.state.isSuccess && (
                         <Message color='green' content="Successsfully!" />
                     )}
@@ -108,30 +129,23 @@ class Users extends Component {
                         </Form>
                     </Segment>
                 </Grid.Column>
-                <Grid.Column width={6} >
+                <Grid.Column width={8} >
                     <Segment>
-                    <List selection>
-                        <List.Header content='List User' as='h2' />
-                        {users && users.map(user => (
-                        <List.Item key={user.key}>
-                        <List.Content>
-                            <List.Header className='item-user'>
-                                <h3>{user.email}</h3>
-                                <Icon className='edit' name='edit' />
-                                <Icon  name='delete' />
-                            </List.Header>
-                        </List.Content>
-                    </List.Item>
-                        )) }
-
-
-                    </List>
+                        <List selection>
+                            <List.Header content='List User' as='h2' />
+                            {this.renderUser()}
+                        </List>
                     </Segment>
-                   
+
                 </Grid.Column>
             </Grid>
         )
     }
 }
 
-export default Users
+const mapStateToProps = state => ({
+    user : state.user
+})
+
+
+export default (connect(mapStateToProps, { getUsers, saveUser, deleteUser })(Users))

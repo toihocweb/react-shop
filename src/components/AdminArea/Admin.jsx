@@ -9,20 +9,8 @@ import { getUsers } from '../../actions'
 import firebase from '../../firebase'
 class Admin extends Component {
 
-    state = {
-        userRef : firebase.database().ref("users"),
-        users : []
-    }
-
-    componentWillMount() {
-        this.setState({
-            users : this.props.getUsers().payload.list
-        })
-    }
-
 
     render() {
-        const { users } = this.state
         return (
             <React.Fragment>
                 <div className="ad">
@@ -52,7 +40,7 @@ class Admin extends Component {
                     </div>
                     <div className="ad-content">
                         <Switch>
-                            <Route component={() => <Users users={users} />} path='/admin/users'/>
+                            <Route component={Users} path='/admin/users'/>
                             <Route component={Services} path='/admin/services' />
                         </Switch>
                     </div>
@@ -64,8 +52,5 @@ class Admin extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    user : state.user
-})
 
-export default connect(mapStateToProps, { getUsers })(Admin)
+export default Admin

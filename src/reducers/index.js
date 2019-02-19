@@ -4,7 +4,7 @@ import { combineReducers } from 'redux'
 const initialUser = {
     currentUser : null,
     isLoading : true,
-    list : []
+    usersList : null,
 }
 
 const user_reducer = (state = initialUser , action) => {
@@ -20,11 +20,26 @@ const user_reducer = (state = initialUser , action) => {
                 isLoading : false
             }
         case actionTypes.GET_USERS:
-            return {
-                ...initialUser,
-                isLoading : false,
-                list : action.payload.list
-            }
+        return {
+            ...initialUser,
+            isLoading : false,
+            usersList : action.payload
+        }
+        default:
+            return state
+    }
+}
+
+const initialProduct = {
+    productList : null
+}
+
+const product_reducer = (state = initialProduct , action) => {
+    switch(action.type){
+        case actionTypes.GET_PRODUCTS:
+        return {
+            productList : action.payload
+        }
         default:
             return state
     }
@@ -32,7 +47,8 @@ const user_reducer = (state = initialUser , action) => {
 
 
 const rootReducer = combineReducers({
-    user : user_reducer
+    user : user_reducer,
+    product : product_reducer
 })
 
 export default rootReducer
