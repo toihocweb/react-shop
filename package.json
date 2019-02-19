@@ -6,6 +6,7 @@
   "dependencies": {
     "firebase": "^5.8.1",
     "gh-pages": "^2.0.1",
+    "lodash": "^4.17.11",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
