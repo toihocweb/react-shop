@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, List, Icon, Form, Segment, Button, Message } from 'semantic-ui-react';
 import firebase from '../../firebase'
 import { connect } from 'react-redux'
+import ListUser from './ListUser';
 class Users extends Component {
     state = {
         username: '',
@@ -10,8 +11,9 @@ class Users extends Component {
         repassword: '',
         errors: [],
         isSuccess: false,
-        usersRefs: firebase.database().ref("users"),
         isLoading: false,
+        users : [],
+        userRef : firebase.database().ref("/users")
     }
 
     handleChange = (e) => {
@@ -20,7 +22,7 @@ class Users extends Component {
         })
     }
 
-
+   
 
     handleSunmit = (e) => {
         e.preventDefault()
@@ -29,8 +31,8 @@ class Users extends Component {
             this.setState({ isLoading: true })
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(createdUser => {
                 createdUser.user.updateProfile({
-                    displayName: this.state.username,
-                }).then(() => { this.saveUser(createdUser) }).then(() => console.log(createdUser))
+                    displayName: this.state.username
+                }).then(() => { this.saveUserToDb(createdUser) })
                 this.setState({
                     username: '',
                     email: '',
@@ -38,6 +40,7 @@ class Users extends Component {
                     repassword: '',
                     errors: [],
                     isSuccess: true,
+                    isLoading: false,
                 })
             }).catch(err => {
                 this.setState({
@@ -48,24 +51,29 @@ class Users extends Component {
         }
     }
 
-    saveUser = (createdUser) => {
-        return this.state.usersRefs.child(createdUser.user.uid).set({
+    saveUserToDb = (createdUser) => {
+        const user = {
             name: createdUser.user.displayName,
-        })
+            id: createdUser.user.uid,
+            email: createdUser.user.email,
+        }
+      this.state.userRef.child(createdUser.user.uid).set(user)
     }
+
+
 
     isFormValid = () => {
         let errors = []
         let err
 
         if (this.isFormEmpty(this.state)) {
-            err = { message: 'Fill in all fields!' }
+            err = { message: 'Vui Lòng Điền Đầy Đủ Thông Tin!' }
             this.setState({
                 errors: errors.concat(err)
             })
             return false
         } else if (this.isPasswordInvalid(this.state.password, this.state.repassword)) {
-            err = { message: 'PAssword dont match!' }
+            err = { message: 'Password không trùng!' }
             this.setState({
                 errors: errors.concat(err)
             })
@@ -78,6 +86,7 @@ class Users extends Component {
         }
     }
 
+
     isPasswordInvalid = (password, repassword) => {
         if (password !== repassword) {
             return true
@@ -88,11 +97,14 @@ class Users extends Component {
         return !username.length || !email.length || !password.length || !repassword.length
     }
 
+    handleDelete = (id) => () => {
+        this.state.userRef.child(id).remove()
+    }
+
     render() {
-        const { username, email, password, repassword } = this.state
-        const { users } = this.props
+        const { username, email, password, repassword, users } = this.state
         return (
-            <Grid  className='ad-register' >
+            <Grid className='ad-register' >
                 <Grid.Column textAlign='center' width={10} >
                     {this.state.isSuccess && (
                         <Message color='green' content="Successsfully!" />
@@ -108,27 +120,8 @@ class Users extends Component {
                         </Form>
                     </Segment>
                 </Grid.Column>
-                <Grid.Column width={6} >
-                    <Segment>
-                    <List selection>
-                        <List.Header content='List User' as='h2' />
-                        {users && users.map(user => (
-                        <List.Item key={user.key}>
-                        <List.Content>
-                            <List.Header className='item-user'>
-                                <h3>{user.email}</h3>
-                                <Icon className='edit' name='edit' />
-                                <Icon  name='delete' />
-                            </List.Header>
-                        </List.Content>
-                    </List.Item>
-                        )) }
-
-
-                    </List>
-                    </Segment>
-                   
-                </Grid.Column>
+                {/* list user */}
+                <ListUser />
             </Grid>
         )
     }

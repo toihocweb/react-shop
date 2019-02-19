@@ -11,7 +11,7 @@ class Register extends Component {
         code : '',
         errors: [],
         isSuccess: false,
-        usersRefs : firebase.database().ref("users"),
+        usersRefs : firebase.database().ref("/users"),
         isLoading: false
     }
 
@@ -52,6 +52,7 @@ class Register extends Component {
     saveUser = (createdUser) => {
         return this.state.usersRefs.child(createdUser.user.uid).set({
             name: createdUser.user.displayName,
+            id: createdUser.user.uid,
             email: createdUser.user.email,
         })
     }

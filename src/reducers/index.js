@@ -19,12 +19,6 @@ const user_reducer = (state = initialUser , action) => {
                 ...initialUser,
                 isLoading : false
             }
-        case actionTypes.GET_USERS:
-            return {
-                ...initialUser,
-                isLoading : false,
-                list : action.payload.list
-            }
         default:
             return state
     }
