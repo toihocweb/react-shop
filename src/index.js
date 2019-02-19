@@ -43,6 +43,7 @@ class Root extends React.Component {
                     <Route component={Register} path='/register' />
                     <Route component={Login} path='/login' />
                     <Route component={Admin} path='/admin' />)}/>
+                    <Route component={Detail} path='/:id' />)}/>
                     <Switch>
                             <Route component={Users} path='/admin/users'/>
                             <Route component={Services} path='/admin/services' />

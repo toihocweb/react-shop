@@ -1,12 +1,25 @@
-.detail-area .container{
+.detail-area {
     background: white;
     padding: 50px;
     margin-top: 50px;
 }
-.description{
-    margin-top: 30px;
+.detail-top{
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(320px , 1fr));
+    grid-gap: 10px;
 }
 
-.main-info{
-    margin-left: 20px;
+
+.detail-info{
+    /* grid-column: 2/4; */
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-user{
+    margin: 20px 0px;
+}
+
+img{
+    max-width: 100%;
 }

@@ -1,40 +1,47 @@
 import React, { Component } from 'react'
 import Item from './Item';
-import { Input} from 'semantic-ui-react'
-import { GridLoader } from 'react-spinners'  
-
+import { Input } from 'semantic-ui-react'
+import { GridLoader } from 'react-spinners'
+import { getProducts } from '../../actions'
+import { connect } from 'react-redux'
 
 class Product extends Component {
 
 
     state = {
         searchTerm: '',
-        isLoading : false,
-        dichvus: [],
-        isItemLoading : false
+        isLoading: false,
+        isItemLoading: true,
+        dichvus: []
     }
+
 
     handleChange = (e) => {
         this.setState({
-            searchTerm : e.target.value,
-            isLoading : true
+            searchTerm: e.target.value,
+            isLoading: true
         })
         setTimeout(() => {
             this.setState({
-                isLoading : false
+                isLoading: false
             })
         }, 500);
     }
 
 
-    filterBrands = ({ searchTerm , dichvus}) => {
+    filterBrands = ( searchTerm, dichvus ) => {
         return dichvus.filter(brand => {
             return brand.name.toLowerCase().includes(searchTerm.toLowerCase())
         })
     }
 
-    componentWillMount(){
-        this.setState({isItemLoading : true})
+
+
+
+    componentDidMount() {
+        this.setState({ isItemLoading: false })
+        this.props.getProducts()
+      
     }
 
 
@@ -42,15 +49,20 @@ class Product extends Component {
         return (
             <div className="content">
                 <div className="title f-between">
-                    <h1>Danh Sách Tài Khoản ...</h1>
-                    <Input size='tiny' icon='search' loading={this.state.isLoading} placeholder='Search...' value={this.state.searchTerm} onChange={this.handleChange}/>
+                    <h2>Danh Sách Tài Khoản ...</h2>
+                    <Input size='tiny' icon='search' loading={this.state.isLoading} placeholder='Search...' value={this.state.searchTerm} onChange={this.handleChange} />
                 </div>
                 <div className="list-accounts">
-                    {!this.state.isItemLoading ? <Item dichvus={this.filterBrands(this.state)}/> : <GridLoader className='loader' color='#4CAF50' size={25} margin="3px" />}
+                    {this.state.isItemLoading ? <GridLoader className='loader' color='#4CAF50' size={25} margin="3px" /> : <Item list={this.props.product.productList} searchTerm={this.state.searchTerm} />}
                 </div>
             </div>
         )
     }
 }
 
-export default Product
+const mapStateToProps = state => ({
+    product: state.product
+})
+
+
+export default (connect(mapStateToProps, { getProducts })(Product))

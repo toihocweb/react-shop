@@ -16,3 +16,43 @@ export const clearUser = () => {
         type: actionTypes.CLEAR_USER
     }
 }
+
+
+export const getUsers = () => {
+    return dispatch => {
+        firebase.database().ref("users").on("value", snap => {
+            dispatch({
+                type: actionTypes.GET_USERS,
+                payload: snap.val()
+            })
+        })
+    }
+}
+
+export const saveUser = (user) => {
+    return dispatch => firebase.database().ref("users").push(user)
+}
+
+export const deleteUser = (id) => {
+    return dispatch => firebase.database().ref("users").child(id).remove()
+}
+
+
+//product
+export const getProducts = () => {
+    return dispatch => {
+        firebase.database().ref("products").on("value", snap => {
+            dispatch({
+                type: actionTypes.GET_PRODUCTS,
+                payload: snap.val()
+            })
+        })
+    }
+}
+export const saveProduct = (product) => {
+    return dispatch => firebase.database().ref("products").push(product)
+}
+
+export const deleteProduct = (id) => {
+    return dispatch => firebase.database().ref("products").child(id).remove()
+}

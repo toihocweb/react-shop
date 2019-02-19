@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Grid, List, Icon, Form, Segment, Button, Message } from 'semantic-ui-react';
 import firebase from '../../firebase'
 import { connect } from 'react-redux'
-import ListUser from './ListUser';
+import _ from 'lodash'
+import { getUsers, saveUser, deleteUser } from '../../actions'
 class Users extends Component {
     state = {
         username: '',
@@ -22,7 +23,9 @@ class Users extends Component {
         })
     }
 
-   
+componentDidMount() {
+    this.props.getUsers()
+}
 
     handleSunmit = (e) => {
         e.preventDefault()
@@ -31,16 +34,16 @@ class Users extends Component {
             this.setState({ isLoading: true })
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(createdUser => {
                 createdUser.user.updateProfile({
-                    displayName: this.state.username
-                }).then(() => { this.saveUserToDb(createdUser) })
+                    displayName: this.state.username,
+                }).then(() => { this.saveUserDB(createdUser) }).then(() => console.log(createdUser))
                 this.setState({
                     username: '',
                     email: '',
                     password: '',
                     repassword: '',
                     errors: [],
-                    isSuccess: true,
                     isLoading: false,
+                    isSuccess: true
                 })
             }).catch(err => {
                 this.setState({
@@ -51,13 +54,12 @@ class Users extends Component {
         }
     }
 
-    saveUserToDb = (createdUser) => {
-        const user = {
-            name: createdUser.user.displayName,
-            id: createdUser.user.uid,
-            email: createdUser.user.email,
+    saveUserDB = (createdUser) => {
+        const newUSer = {
+            name : createdUser.user.displayName,
+            email : createdUser.user.email
         }
-      this.state.userRef.child(createdUser.user.uid).set(user)
+        this.props.saveUser(newUSer)
     }
 
 
@@ -97,15 +99,27 @@ class Users extends Component {
         return !username.length || !email.length || !password.length || !repassword.length
     }
 
-    handleDelete = (id) => () => {
-        this.state.userRef.child(id).remove()
+    renderUser = () => {
+        return _.map(this.props.user.usersList, (user, key) => {
+            return (
+                <List.Item key={key}>
+                    <List.Content>
+                        <List.Header className='item-user'>
+                            <h5>{user.name}</h5>
+                            <Icon className='edit' name='edit' />
+                            <Icon onClick={() => this.props.deleteUser(key)} name='delete' />
+                        </List.Header>
+                    </List.Content>
+                </List.Item>
+            )
+        })
     }
 
     render() {
-        const { username, email, password, repassword, users } = this.state
+        const { username, email, password, repassword } = this.state
         return (
             <Grid className='ad-register' >
-                <Grid.Column textAlign='center' width={10} >
+                <Grid.Column textAlign='center' width={8} >
                     {this.state.isSuccess && (
                         <Message color='green' content="Successsfully!" />
                     )}
@@ -120,11 +134,23 @@ class Users extends Component {
                         </Form>
                     </Segment>
                 </Grid.Column>
-                {/* list user */}
-                <ListUser />
+                <Grid.Column width={8} >
+                    <Segment>
+                        <List selection>
+                            <List.Header content='List User' as='h2' />
+                            {this.renderUser()}
+                        </List>
+                    </Segment>
+
+                </Grid.Column>
             </Grid>
         )
     }
 }
 
-export default Users
+const mapStateToProps = state => ({
+    user : state.user
+})
+
+
+export default (connect(mapStateToProps, { getUsers, saveUser, deleteUser })(Users))
