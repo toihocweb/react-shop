@@ -3,23 +3,41 @@
     padding: 50px;
     margin-top: 50px;
 }
-.detail-top{
+
+.detail-top {
     display: grid;
-    grid-template-columns: repeat(auto-fill , minmax(320px , 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     grid-gap: 10px;
 }
 
-
-.detail-info{
+.detail-info {
     /* grid-column: 2/4; */
     display: flex;
     flex-direction: column;
 }
 
-.detail-user{
-    margin: 20px 0px;
+.detail-user {
+    margin: 10px 0px;
 }
 
-img{
+img {
     max-width: 100%;
+}
+
+.description{
+    margin-top: 20px;
+}
+
+.description h2 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2ecc71;
+    margin-bottom: 20px;
+}
+
+p{
+    margin: 0 !important;
+}
+
+button.ui.button.random{
+    margin-top: 5px !important; 
 }

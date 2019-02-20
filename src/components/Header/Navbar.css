@@ -1,7 +1,7 @@
 .ui.dropdown .menu{
     /* position: relative; */
     top: 140% !important;
-    width: 180px;
+    width: 110px;
 }
 
 .ui.dropdown .menu::after{

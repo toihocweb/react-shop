@@ -35,15 +35,11 @@ class Product extends Component {
         })
     }
 
-
-
-
     componentDidMount() {
         this.setState({ isItemLoading: false })
         this.props.getProducts()
       
     }
-
 
     render() {
         return (

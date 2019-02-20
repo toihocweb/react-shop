@@ -13,8 +13,8 @@ class Users extends Component {
         errors: [],
         isSuccess: false,
         isLoading: false,
-        users : [],
-        userRef : firebase.database().ref("/users")
+        users: [],
+        userRef: firebase.database().ref("/users")
     }
 
     handleChange = (e) => {
@@ -23,13 +23,12 @@ class Users extends Component {
         })
     }
 
-componentDidMount() {
-    this.props.getUsers()
-}
+    componentDidMount() {
+        this.props.getUsers()
+    }
 
     handleSunmit = (e) => {
         e.preventDefault()
-
         if (this.isFormValid()) {
             this.setState({ isLoading: true })
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(createdUser => {
@@ -56,8 +55,8 @@ componentDidMount() {
 
     saveUserDB = (createdUser) => {
         const newUSer = {
-            name : createdUser.user.displayName,
-            email : createdUser.user.email
+            name: createdUser.user.displayName,
+            email: createdUser.user.email
         }
         this.props.saveUser(newUSer)
     }
@@ -141,7 +140,6 @@ componentDidMount() {
                             {this.renderUser()}
                         </List>
                     </Segment>
-
                 </Grid.Column>
             </Grid>
         )
@@ -149,7 +147,7 @@ componentDidMount() {
 }
 
 const mapStateToProps = state => ({
-    user : state.user
+    user: state.user
 })
 
 

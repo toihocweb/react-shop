@@ -45,8 +45,8 @@ class Root extends React.Component {
                     <Route component={Admin} path='/admin' />)}/>
                     <Route component={Detail} path='/:id' />)}/>
                     <Switch>
-                            <Route component={Users} path='/admin/users'/>
-                            <Route component={Services} path='/admin/services' />
+                        <Route component={Users} path='/admin/users' />
+                        <Route component={Services} path='/admin/services' />
                     </Switch>
                     <Redirect from="*" to="/login" />
                 </Switch>

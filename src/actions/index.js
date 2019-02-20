@@ -56,3 +56,14 @@ export const saveProduct = (product) => {
 export const deleteProduct = (id) => {
     return dispatch => firebase.database().ref("products").child(id).remove()
 }
+
+export const getUsersProduct = (id) => {
+    return dispatch => {
+         firebase.database().ref("products").child(id).on('value' , snap => {
+            dispatch({
+                type: actionTypes.GET_USERS_PRODUCTS,
+                payload : snap.val()
+            })
+        })
+    }
+}

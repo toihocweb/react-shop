@@ -31,15 +31,16 @@ const user_reducer = (state = initialUser , action) => {
 }
 
 const initialProduct = {
-    productList : null
+    productList : null,
 }
 
 const product_reducer = (state = initialProduct , action) => {
     switch(action.type){
         case actionTypes.GET_PRODUCTS:
-        return {
-            productList : action.payload
-        }
+            return {
+                productList : action.payload
+            }
+
         default:
             return state
     }
