@@ -4,8 +4,8 @@ import Category from '../components/ListAccounts/Category';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Header/Navbar';
 class App extends Component {
-  render() {
 
+  render() {
     return (
       <div className="App">
         <div className="container">
@@ -18,7 +18,5 @@ class App extends Component {
     );
   }
 }
-
-
 
 export default App;

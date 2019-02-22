@@ -3,6 +3,9 @@ import { Grid, Icon, Segment, Form, Message, Button, Header } from 'semantic-ui-
 import { Link } from 'react-router-dom'
 import './auth.css'
 import firebase from '../../firebase'
+import {withRouter} from 'react-router-dom'
+
+
 class Login extends Component {
     state = {
         email: '',
@@ -29,6 +32,7 @@ class Login extends Component {
                     isloading: false,
                     errors: []
                 })
+                this.props.history.push('/')
             }).catch(err => {
                 let errs = { message: "Sai thông tin tài khoản!" }
                 this.setState({
@@ -78,4 +82,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default withRouter(Login)

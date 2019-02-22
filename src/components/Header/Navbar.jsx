@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { Dropdown } from 'semantic-ui-react'
 import firebase from '../../firebase'
 import './Navbar.css'
+import { connect } from 'react-redux'
+
 class Navbar extends Component {
 
     handleLogout = () => {
         firebase.auth().signOut()
     }
-    render() {
 
+    
+    
+
+    render() {
         return (
             <header className="f-between">
                 <div className="logo">
@@ -19,6 +24,9 @@ class Navbar extends Component {
                     <ul className="f-between">
                         <Dropdown text='Welcome!'>
                             <Dropdown.Menu>
+                                {this.props.user.isAdmin && 
+                                ( <Dropdown.Item text='Admin'  onClick={() => {this.props.history.push('/admin')}} /> )
+                                }
                                 <Dropdown.Item text='Đăng xuất' onClick={this.handleLogout} />
                             </Dropdown.Menu>
                         </Dropdown>
@@ -29,4 +37,9 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+
+export default withRouter(connect(mapStateToProps, null)(Navbar))

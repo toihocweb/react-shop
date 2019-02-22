@@ -6,7 +6,8 @@ export const setUser = user => {
     return {
         type: actionTypes.SET_USER,
         payload: {
-            currentUser: user
+            currentUser: user,
+            isAdmin : user.email === 'admin@gmail.com' ? true : false
         }
     }
 }

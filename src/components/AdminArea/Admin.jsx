@@ -11,7 +11,7 @@ class Admin extends Component {
             <React.Fragment>
                 <div className="ad">
                     <div className="sidebar">
-                        <Header size='large' className='sb-header' icon='adn' content='Admin' color='green' />
+                        <Header size='large' className='sb-header' icon='adn' content='Admin' color='green' onClick={() => { this.props.history.push('/') }} />
                         <List divided inverted animated>
                             <List.Item>
                                 <List.Icon name='users' />
@@ -32,11 +32,11 @@ class Admin extends Component {
                                 </List.Content>
                             </List.Item>
                         </List>
-
                     </div>
                     <div className="ad-content">
+                        <Header  size='large' color='pink'>Welcome to Admin Panel!</Header>
                         <Switch>
-                            <Route component={Users} path='/admin/users'/>
+                            <Route component={Users} path='/admin/users' />
                             <Route component={Services} path='/admin/services' />
                         </Switch>
                     </div>

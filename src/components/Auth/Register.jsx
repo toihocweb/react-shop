@@ -27,7 +27,7 @@ class Register extends Component {
             this.setState({ isLoading: true })
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(createdUser => {
                 createdUser.user.updateProfile({
-                    displayName: this.state.displayName
+                    displayName: this.state.username
                 }).then(() => { this.saveUser(createdUser) }).then(() => console.log(createdUser))
                 this.setState({
                     username: '',
@@ -52,8 +52,7 @@ class Register extends Component {
     saveUser = (createdUser) => {
         return this.state.usersRefs.child(createdUser.user.uid).set({
             name: createdUser.user.displayName,
-            id: createdUser.user.uid,
-            email: createdUser.user.email,
+            email: createdUser.user.email
         })
     }
 

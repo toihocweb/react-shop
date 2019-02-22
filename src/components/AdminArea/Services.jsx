@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import { Grid, Form, Segment, Button, Message, List, Icon, Input } from 'semantic-ui-react';
+import { Grid, Form, Segment, Button, Message, List, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux'
 import firebase from '../../firebase'
 import { getProducts, saveProduct, deleteProduct } from '../../actions'
 import _ from 'lodash'
+import ReactQuill from 'react-quill'; // ES6
+import 'react-quill/dist/quill.snow.css'; // ES6
+
+
+
 class Services extends Component {
 
   state = {
@@ -32,6 +37,12 @@ class Services extends Component {
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
+    })
+  }
+
+  handleDes = description => {
+    this.setState({
+      description
     })
   }
 
@@ -175,9 +186,15 @@ class Services extends Component {
       price: '',
       description: '',
       file: null,
-      users: []
+      users: [
+        {
+          name: '',
+          pass: ''
+        }
+      ]
     })
   }
+
 
   render() {
     const { title, price, isSuccess, isLoading, description, user, pass } = this.state
@@ -194,8 +211,8 @@ class Services extends Component {
                 <Form.Input iconPosition='left' placeholder="Title" icon='bug' name='title' onChange={this.handleChange} value={title} type='text' />
                 <Form.Input fluid type='file' name='file' onChange={this.addFile} />
                 <Form.Input iconPosition='left' placeholder="Price" icon='money' name='price' onChange={this.handleChange} value={price} type='number' />
-                <Form.TextArea rows={5} placeholder="Description" name='description' onChange={this.handleChange} value={description} />
-
+                {/* <Form.TextArea rows={5} placeholder="Description" name='description' onChange={this.handleChange} value={description} /> */}
+                <ReactQuill value={description} onChange={this.handleDes} />
                 {this.state.errors.length > 0 && this.state.errors.map((err, index) => (<Message key={index} color='red' content={err.message} />))}
 
                 <div className="f-between">

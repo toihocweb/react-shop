@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import Item from './Item';
 import { Input } from 'semantic-ui-react'
-import { GridLoader } from 'react-spinners'
 import { getProducts } from '../../actions'
 import { connect } from 'react-redux'
 
 class Product extends Component {
 
-
     state = {
         searchTerm: '',
         isLoading: false,
-        isItemLoading: true,
         dichvus: []
     }
 
@@ -35,10 +32,16 @@ class Product extends Component {
         })
     }
 
-    componentDidMount() {
-        this.setState({ isItemLoading: false })
-        this.props.getProducts()
-      
+     componentDidMount() {
+
+            this.props.getProducts()
+        
+    }
+
+    componentWillUnmount(){
+        this.setState({
+            isLoading : false
+        }) 
     }
 
     render() {
@@ -49,7 +52,7 @@ class Product extends Component {
                     <Input size='tiny' icon='search' loading={this.state.isLoading} placeholder='Search...' value={this.state.searchTerm} onChange={this.handleChange} />
                 </div>
                 <div className="list-accounts">
-                    {this.state.isItemLoading ? <GridLoader className='loader' color='#4CAF50' size={25} margin="3px" /> : <Item list={this.props.product.productList} searchTerm={this.state.searchTerm} />}
+                    <Item list={this.props.product.productList} searchTerm={this.state.searchTerm}/>
                 </div>
             </div>
         )

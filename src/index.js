@@ -22,21 +22,19 @@ import Services from './components/AdminArea/Services';
 
 class Root extends React.Component {
 
-    // componentDidMount() {
-    //     firebase.auth().onAuthStateChanged(user => {
-    //         if (user) {
-    //             this.props.setUser(user)
-    //             this.props.history.push('/admin')
-    //         } else {
-    //             this.props.clearUser()
-    //             this.props.history.push('/login')
-    //         }
-    //     })
-    // }
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.props.setUser(user)
+            } else {
+                this.props.clearUser()
+                this.props.history.push('/login')
+            }
+        })
+    }
 
-    // this.props.isLoading ? <Spinner /> : 
     render() {
-        return (
+        return this.props.user.isLoading ? <Spinner /> :  (
             <React.Fragment>
                 <Switch>
                     <Route exact component={App} path='/' />
@@ -48,7 +46,9 @@ class Root extends React.Component {
                         <Route component={Users} path='/admin/users' />
                         <Route component={Services} path='/admin/services' />
                     </Switch>
-                    <Redirect from="*" to="/login" />
+                    {/* <Route component={Admin} path='/admin' />)}/> */}
+                    <Redirect from='/admin' to='/admin/users' exact />
+                    {/* <Redirect from="*" to="/login" /> */}
                 </Switch>
             </React.Fragment>
         )
@@ -58,7 +58,8 @@ class Root extends React.Component {
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 const mapStateFromProps = state => ({
-    isLoading: state.user.isLoading
+    // isLoading: state.user.isLoading,
+    user : state.user
 })
 
 const RootWithAuth = withRouter(connect(mapStateFromProps, { setUser, clearUser })(Root))

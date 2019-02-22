@@ -5,14 +5,16 @@ const initialUser = {
     currentUser : null,
     isLoading : true,
     usersList : null,
+    isAdmin : false
 }
 
 const user_reducer = (state = initialUser , action) => {
     switch(action.type){
         case actionTypes.SET_USER:
             return {
-                curretUser :  action.payload.currentUser,
-                isLoading : false
+                currentUser :  action.payload.currentUser,
+                isLoading : false,
+                isAdmin : action.payload.isAdmin
             }
         case actionTypes.CLEAR_USER:
             return {

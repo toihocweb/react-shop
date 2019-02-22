@@ -76,14 +76,14 @@ header .nav a:hover::after {
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 10px;
+    grid-gap: 20px;
     position: relative;
 }
 
 .list-accounts .item {
     border: 1px solid #4CAF50;
     box-shadow: 0 0 4px -2px #333;
-    padding: 20px;
+    padding: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     transition: 0.4s;
@@ -244,3 +244,12 @@ h2{
     font-weight: bold;
 }
 
+.ui.inverted.list .item a:not(.ui).active{
+    color: #21ba45 !important;
+}
+@media (min-width: 950px){
+    .list-accounts img{
+            height: 100px;
+    }
+
+}
