@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/toihocweb/react-shop/precache-manifest.feb3b7150abc7b289625d54dfac1f361.js"
+  "/react-shop/precache-manifest.6cdff2899b649dd1a4f795d6563b810d.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/toihocweb/react-shop/index.html", {
+workbox.routing.registerNavigationRoute("/react-shop/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
