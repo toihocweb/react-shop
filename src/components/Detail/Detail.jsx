@@ -5,6 +5,8 @@ import Navbar from '../Header/Navbar';
 import firebase from '../../firebase'
 import uniqueRandom from 'unique-random'
 
+import { connect } from 'react-redux'
+
 class Detail extends Component {
     _isMounted = false
     state = {
@@ -60,10 +62,15 @@ class Detail extends Component {
                         <div className="detail-top">
                             <p><img src={photoUrl} alt="img" /></p>
                             <div className="detail-info">
-                                <h1>{name} <Button content={users ? `Số lượng: ${users.length}` : `Số lượng: 0`} color='teal' /></h1>
-                                <Input icon='user' iconPosition='left' placeholder='Username' className='detail-user' value={user} />
-                                <Input icon='lock' iconPosition='left' placeholder='Password' value={pass} />
-                                <Button color='red' className='random' content='Random' onClick={this.handleRandom} />
+                                <h1>{name} <Button content={users ? `Số tk hiện có: ${users.length}` : `Số lượng: 0`} color='teal' /></h1>
+                                {(this.props.user.currentUser !== null || name.includes('free')) && (
+                                    <React.Fragment>
+                                        <Input icon='user' iconPosition='left' placeholder='Username' className='detail-user' value={user} />
+                                        <Input icon='lock' iconPosition='left' placeholder='Password' value={pass} />
+                                        <Button color='red' className='random' content='Random' onClick={this.handleRandom} />
+                                    </React.Fragment>
+                                )}
+
                             </div>
                         </div>
                         <div className="description">
@@ -79,4 +86,8 @@ class Detail extends Component {
     }
 }
 
-export default Detail
+const mapStatetoProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStatetoProps, null)(Detail)

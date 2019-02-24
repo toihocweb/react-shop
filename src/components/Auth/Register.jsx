@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Header, Message, Segment, Icon, Form, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import firebase from '../../firebase'
+import Navbar from '../Header/Navbar';
 class Register extends Component {
     state = {
         username: '',
@@ -108,6 +109,7 @@ class Register extends Component {
 
         return (
             <div className='container'>
+                <Navbar />
                 <Grid verticalAlign='middle' textAlign='center' className='register' >
                     <Grid.Column style={{ maxWidth: 600 }}>
                         <Header icon color={color} as='h2'>

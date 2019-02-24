@@ -14,6 +14,7 @@ class Services extends Component {
   state = {
     title: '',
     price: '',
+    exprire : '',
     errors: [],
     file: null,
     description: '',
@@ -76,6 +77,7 @@ class Services extends Component {
               name: this.state.title,
               photoUrl: this.state.url,
               price: this.state.price,
+              exprire : this.state.exprire,
               description: this.state.description,
             })
           } else {
@@ -83,6 +85,7 @@ class Services extends Component {
               name: this.state.title,
               photoUrl: this.state.url,
               price: this.state.price,
+              exprire : this.state.exprire,
               description: this.state.description,
               users: this.state.users
             })
@@ -93,6 +96,7 @@ class Services extends Component {
             idSelected: '',
             title: '',
             price: '',
+            exprire:'',
             description: '',
             file: null,
           })
@@ -117,7 +121,9 @@ class Services extends Component {
       this.setState({
         idSelected: id,
         title: info.name,
+        file: null,
         price: info.price,
+        exprire : info.exprire,
         description: info.description,
         users: info.users
       })
@@ -184,6 +190,7 @@ class Services extends Component {
       idSelected: '',
       title: '',
       price: '',
+      exprire:'',
       description: '',
       file: null,
       users: [
@@ -197,7 +204,7 @@ class Services extends Component {
 
 
   render() {
-    const { title, price, isSuccess, isLoading, description, user, pass } = this.state
+    const { title, price, exprire,isSuccess, isLoading, description, user, pass } = this.state
 
     return (
       <React.Fragment>
@@ -211,6 +218,7 @@ class Services extends Component {
                 <Form.Input iconPosition='left' placeholder="Title" icon='bug' name='title' onChange={this.handleChange} value={title} type='text' />
                 <Form.Input fluid type='file' name='file' onChange={this.addFile} />
                 <Form.Input iconPosition='left' placeholder="Price" icon='money' name='price' onChange={this.handleChange} value={price} type='number' />
+                <Form.Input iconPosition='left' placeholder="Exprire" icon='time' name='exprire' onChange={this.handleChange} value={exprire} type='text' />
                 {/* <Form.TextArea rows={5} placeholder="Description" name='description' onChange={this.handleChange} value={description} /> */}
                 <ReactQuill value={description} onChange={this.handleDes} />
                 {this.state.errors.length > 0 && this.state.errors.map((err, index) => (<Message key={index} color='red' content={err.message} />))}

@@ -251,5 +251,29 @@ h2{
     .list-accounts img{
             height: 100px;
     }
+}
+@media (max-width: 700px){
+    .content .title{
+        flex-direction: column;
+        align-items: unset;
+    }
+}
 
+
+
+.sa-icon.sa-info{
+    display: block !important;
+}
+.dsss{
+    width: 250px;
+}
+
+.contact {
+    color: #f1c40f;
+    text-decoration: underline;
+}
+
+.item.updading{
+    pointer-events: none;
+    opacity: 0.4;
 }

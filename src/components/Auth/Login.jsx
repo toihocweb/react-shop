@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import './auth.css'
 import firebase from '../../firebase'
 import {withRouter} from 'react-router-dom'
-
+import Navbar from '../Header/Navbar'
 
 class Login extends Component {
     state = {
@@ -35,10 +35,12 @@ class Login extends Component {
                 this.props.history.push('/')
             }).catch(err => {
                 let errs = { message: "Sai thông tin tài khoản!" }
+                console.log(err.code)
                 this.setState({
                     errors: error.concat(errs),
                     isloading: false
                 })
+                
             })
         }
     }
@@ -58,6 +60,7 @@ class Login extends Component {
         const color = "green"
         return (
             <div className='container'>
+                <Navbar />
                 <Grid verticalAlign='middle' textAlign='center' className='login' >
                     <Grid.Column style={{ maxWidth: 600 }}>
                         <Header icon color={color} as='h2'>
