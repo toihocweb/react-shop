@@ -4,7 +4,6 @@ import { Input, Button } from 'semantic-ui-react';
 import Navbar from '../Header/Navbar';
 import firebase from '../../firebase'
 import uniqueRandom from 'unique-random'
-
 import { connect } from 'react-redux'
 
 class Detail extends Component {
@@ -15,7 +14,9 @@ class Detail extends Component {
         photoUrl: '',
         users: [],
         user: '',
-        pass: ''
+        pass: '',
+        currentProduct: null,
+
     }
 
     componentDidMount() {
@@ -70,7 +71,13 @@ class Detail extends Component {
                                         <Button color='red' className='random' content='Random' onClick={this.handleRandom} />
                                     </React.Fragment>
                                 )}
-
+                                {name.includes("Udemy") && (
+                                    <React.Fragment>
+                                        <Input icon='js' iconPosition='left' placeholder='Link khóa học' className='detail-user' value={user} />
+                                        <Input icon='lock' iconPosition='left' placeholder='Email nhận khóa học' value={pass} />
+                                        <Button color='red' className='random' content='Nhận khóa học' />
+                                    </React.Fragment>
+                                )}
                             </div>
                         </div>
                         <div className="description">

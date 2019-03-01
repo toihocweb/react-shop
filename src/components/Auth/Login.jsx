@@ -64,7 +64,7 @@ class Login extends Component {
                 <Grid verticalAlign='middle' textAlign='center' className='login' >
                     <Grid.Column style={{ maxWidth: 600 }}>
                         <Header icon color={color} as='h2'>
-                            <Icon name='unlock' size='tiny' />Login to FindUrAcc
+                            <Icon name='unlock' size='tiny' />Login to NickGiaRe
                         </Header>
                         <Segment>
                             <Form onSubmit={this.handleSunmit}>

@@ -50,6 +50,11 @@ export const getProducts = () => {
         })
     }
 }
+
+export const getCurrentProduct = (id) => {
+    return dispatch => firebase.database().ref("products").child(id)
+}
+
 export const saveProduct = (product) => {
     return dispatch => firebase.database().ref("products").push(product)
 }

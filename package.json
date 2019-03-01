@@ -1,7 +1,7 @@
 {
   "name": "shopacc",
   "version": "0.1.0",
-  "homepage": "http://nickgiare.pro",
+  "homepage": "https://nickgiare.pro",
   "private": true,
   "dependencies": {
     "firebase": "^5.8.1",
@@ -40,5 +40,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-ga": "^2.5.7"
+  }
 }

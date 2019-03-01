@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import './Admin.css'
 import { Header, List } from 'semantic-ui-react';
-import { Switch, Route, NavLink } from 'react-router-dom'
+import { Switch, Route, NavLink, withRouter } from 'react-router-dom'
 import Users from './Users';
 import Services from './Services';
+import { connect } from 'react-redux'
 class Admin extends Component {
+
+    componentWillMount() {
+        if(!this.props.user.isAdmin){
+            this.props.history.push('/')
+        }
+    }
 
     render() {
         return (
@@ -34,7 +41,7 @@ class Admin extends Component {
                         </List>
                     </div>
                     <div className="ad-content">
-                        <Header  size='large' color='pink'>Welcome to Admin Panel!</Header>
+                        <Header size='large' color='pink'>Welcome to Admin Panel!</Header>
                         <Switch>
                             <Route component={Users} path='/admin/users' />
                             <Route component={Services} path='/admin/services' />
@@ -49,4 +56,8 @@ class Admin extends Component {
 }
 
 
-export default Admin
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default withRouter(connect(mapStateToProps, null)(Admin))

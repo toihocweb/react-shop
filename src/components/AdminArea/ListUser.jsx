@@ -3,12 +3,11 @@ import { Grid, List, Icon, Segment } from 'semantic-ui-react';
 import firebase from '../../firebase'
 class ListUser extends Component {
 
-
     state = {
         users: [],
         userRef : firebase.database().ref('users')
-        
     }
+    
     componentDidMount() {
         this.addListeners()
     }
@@ -35,9 +34,7 @@ class ListUser extends Component {
         })
     }
 
-
     render() {
-
         const { users } = this.state
         console.log(this.state.users)
         return (

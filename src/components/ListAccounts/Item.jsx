@@ -32,8 +32,6 @@ class Item extends Component {
         this._isMounted = false
     }
 
-
-
     hiddenAlert = () => {
         this.setState({
             show: false
@@ -63,12 +61,11 @@ class Item extends Component {
 
                             <div className="acc-bot">
                                 {newList.price !== '0' && (
-                                    <a className="buy" onClick={this.handleShow(newList.name, newList.price)} >Mua !</a>
+                                    <a href className="buy" onClick={this.handleShow(newList.name, newList.price)} >Mua !</a>
                                 )}
                                 <span className="price">Giá: {`${newList.price}k`}</span>
                             </div>
                         </div>
-
                     </div>
                 )
             } else {
@@ -86,8 +83,6 @@ class Item extends Component {
         )
     }
 }
-
-
 
 
 export default Item

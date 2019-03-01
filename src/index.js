@@ -8,8 +8,8 @@ import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import 'semantic-ui-css/semantic.min.css'
 import Detail from './components/Detail/Detail';
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { createStore, applyMiddleware } from 'redux'
+// import { composeWithDevTools } from 'redux-devtools-extension'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider, connect } from 'react-redux'
 import thunk from 'redux-thunk'
 import { clearUser, setUser } from './actions'
@@ -20,20 +20,28 @@ import rootReducer from './reducers'
 import Users from './components/AdminArea/Users';
 import Services from './components/AdminArea/Services';
 import Commit from './components/Commit/Commit';
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-135446127-1');
 
+ReactGA.pageview(window.location.pathname + window.location.search);
+ReactGA.event({
+    category: 'User',
+    action: 'Sent message'
+  });
 class Root extends React.Component {
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.props.setUser(user)
+                this.props.history.push('/')
             } else {
                 this.props.clearUser()
                 this.props.history.push('/')
             }
         })
     }
-    //   
+    //   this.props.user.isLoading ? <Spinner /> : 
     render() {
         return this.props.user.isLoading ? <Spinner /> : (
             <React.Fragment>
@@ -54,7 +62,7 @@ class Root extends React.Component {
     }
 }
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+const store = createStore(rootReducer, compose(applyMiddleware(thunk)))
 
 const mapStateFromProps = state => ({
     // isLoading: state.user.isLoading,

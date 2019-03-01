@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown ,Label} from 'semantic-ui-react'
 import firebase from '../../firebase'
 import './Navbar.css'
 import { connect } from 'react-redux'
@@ -15,12 +15,12 @@ class Navbar extends Component {
         return (
             <header className="f-between">
                 <div className="logo">
-                    <h1><Link to='/'>FindUr<span>Account</span></Link></h1>
+                    <h1><Link to='/'>Nick <span>Gía Rẻ</span></Link></h1>
                 </div>
                 {this.props.user.currentUser !== null ? (
                     <div className="nav">
                         <ul className="f-between">
-                            <Dropdown text='Welcome!'>
+                            <Dropdown text={`Welcome ${this.props.user.currentUser.displayName}`} >
                                 <Dropdown.Menu>
                                     {this.props.user.isAdmin &&
                                         (<Dropdown.Item text='Admin' onClick={() => { this.props.history.push('/admin') }} />)

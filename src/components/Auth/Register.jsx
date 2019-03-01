@@ -113,7 +113,7 @@ class Register extends Component {
                 <Grid verticalAlign='middle' textAlign='center' className='register' >
                     <Grid.Column style={{ maxWidth: 600 }}>
                         <Header icon color={color} as='h2'>
-                            <Icon name='shield alternate' size='tiny' />Register With FindUrAcc
+                            <Icon name='shield alternate' size='tiny' />Register With NickGiaRe
                     </Header>
                         {this.state.isSuccess && (
                             <Message color='green' content="Successsfully!" />
